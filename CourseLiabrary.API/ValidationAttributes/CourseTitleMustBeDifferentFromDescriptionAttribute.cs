@@ -10,15 +10,14 @@ namespace CourseLibrary.API.ValidationAttributes
     public class CourseTitleMustBeDifferentFromDescriptionAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value,
-           ValidationContext validationContext)
+            ValidationContext validationContext)
         {
-            var course = (CourseForCreationDto)validationContext.ObjectInstance;
+            var course = (CourseForManipulationDto)validationContext.ObjectInstance;
 
             if (course.Title == course.Description)
             {
-                return new ValidationResult(
-                    "The provide description should be different from the title. ",
-                    new[] { "CourseForCreationDto" });
+                return new ValidationResult(ErrorMessage,
+                    new[] { nameof(CourseForManipulationDto) });
             }
 
             return ValidationResult.Success;
